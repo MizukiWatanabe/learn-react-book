@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "content": "create react appをインストールする",
+      "done": true
+    },
+    {
+      "id": 2,
+      "content": "JSON serverの仮APIを作成",
+      "done": false
+    },
+    {
+      "id": 3,
+      "content": "Chakura UIをインストール",
+      "done": false
+    }
+  ]
+}
