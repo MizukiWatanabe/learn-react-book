@@ -47,6 +47,15 @@ const TodoList = ({ todoList }) => {
   );
 };
 
+const TodoAdd = ({ inputEl, handleAddTodoListItem }) => {
+  return (
+    <>
+      <textarea ref={inputEl} />
+      <button onClick={handleAddTodoListItem}>+ TODOを追加</button>
+    </>
+  );
+};
+
 function App() {
   // todolistの初期値にからの配列を設定
   // const [todoList, setTodoList] = useState([]);
@@ -107,9 +116,14 @@ function App() {
       {/* <h1>TODO進捗管理</h1> */}
       <TodoTitle title="TODO進捗管理" as="h1" />
 
-      <textarea ref={inputEl} />
+      <TodoAdd
+        inputEl={inputEl}
+        handleAddTodoListItem={handleAddTodoListItem}
+      />
 
-      <button onClick={handleAddTodoListItem}>+ TODOを追加</button>
+      {/* <textarea ref={inputEl} />
+
+      <button onClick={handleAddTodoListItem}>+ TODOを追加</button> */}
 
       <TodoTitle title="TODOリスト" as="h2" />
 
