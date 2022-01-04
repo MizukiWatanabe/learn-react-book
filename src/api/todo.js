@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// todoは引数
+
 const todoDataUrl = 'http://localhost:3100/todos';
 
 export const getAllTodosData = async () => {
