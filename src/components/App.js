@@ -20,23 +20,63 @@ const TodoTitle = ({ title, as }) => {
 
 // TodoItemコンポーネント
 // 親コンポーネントからtodoをpropsで受け取る
-const TodoItem = ({ todo }) => {
+// const TodoItem = ({ todo, toggleTodoListItemStatus, deleteTodoListItem }) => {
+//   const handleToggleTodoListItemStatus = () =>
+//     toggleTodoListItemStatus(todo.id, todo.done);
+//   const handleDeleteTodoListItem = () => deleteTodoListItem(todo.id);
+
+// const TodoItem = ({ todo, toggleTodoListItemStatus, deleteTodoListItem }) => {
+//   // TODOの状態を反転させる関数toggleTodoListItemStatusを実行する関数を宣言
+//   const handleToggleTodoListItemStatus = () =>
+//     toggleTodoListItemStatus(todo.id, todo.done);
+//   // TODOを削除するdeleteTodoListItemを実行する関数を宣言
+//   const handleDeleteTodoListItem = () => deleteTodoListItem(todo.id);
+//   return (
+//     <li>
+//       {todo.content}({todo.done ? '完了' : '未完了'})
+//       <button onClick={handleToggleTodoListItemStatus}>
+//         {todo.done ? '未完了リストへ' : '完了リストへ'}
+//       </button>
+//       <button onClick={handleDeleteTodoListItem}>削除</button>
+//     </li>
+//   );
+// };
+// TodoItemコンポーネント
+// 親コンポーネントからtodoをpropsで受け取る
+const TodoItem = ({ todo, toggleTodoListItemStatus, deleteTodoListItem }) => {
+  // TODOの状態を反転させる関数toggleTodoListItemStatusを実行する関数を宣言
+  const handleToggleTodoListItemStatus = () =>
+    toggleTodoListItemStatus(todo.id, todo.done);
+  // TODOを削除するdeleteTodoListItemを実行する関数を宣言
+  const handleDeleteTodoListItem = () => deleteTodoListItem(todo.id);
+
   return (
     <li>
-      {todo.content}({todo.done ? '完了' : '未完了'})
-      <button>{todo.done ? '未完了リストへ' : '完了リストへ'}</button>
-      <button>削除</button>
+      {todo.content}
+      <button onClick={handleToggleTodoListItemStatus}>
+        {todo.done ? '未完了リストへ' : '完了リストへ'}
+      </button>
+      <button onClick={handleDeleteTodoListItem}>削除</button>
     </li>
   );
 };
 
 // TODOlistコンポーネント
 // 親コンポーネントからtodolistをpropsで受け取る
-const TodoList = ({ todoList }) => {
+const TodoList = ({
+  todoList,
+  toggleTodoListItemStatus,
+  deleteTodoListItem,
+}) => {
   return (
     <ul>
       {todoList.map((todo) => (
-        <TodoItem todo={todo} key={todo.id} />
+        <TodoItem
+          todo={todo}
+          key={todo.id}
+          toggleTodoListItemStatus={toggleTodoListItemStatus}
+          deleteTodoListItem={deleteTodoListItem}
+        />
         // <li key={todo.id}>
         //   {todo.content}({todo.done ? '完了' : '未完了'})
         //   <button>{todo.done ? '未完了リストへ' : '完了リストへ'}</button>
@@ -81,6 +121,8 @@ function App() {
   const {
     todoList, //todoの現在の状態
     addTodoListItem, //新規todoを追加する関数
+    toggleTodoListItemStatus,
+    deleteTodoListItem,
   } = useTodo();
 
   // useRefでrefオブジェクトを作成
@@ -100,7 +142,6 @@ function App() {
   };
 
   console.log('TODOリスト', todoList);
-
   const inCompletedList = todoList.filter((todo) => {
     return !todo.done;
   });
@@ -127,7 +168,16 @@ function App() {
 
       <TodoTitle title="TODOリスト" as="h2" />
 
-      <TodoList todoList={inCompletedList} />
+      <TodoList
+        todoList={inCompletedList}
+        //useTodo()カスタムフックで作成したtoggleTodoListItemStatus関数をpropsで渡す
+        // この関数はtodoListItemのdoneを反転させて更新する
+        toggleTodoListItemStatus={toggleTodoListItemStatus}
+        //useTodo()カスタムフックで作成したdeleteTodoListItemStatus関数をpropsで渡す
+        // この関数は削除ボタンをクリックしたときに実行してtodoを削除する
+        deleteTodoListItem={deleteTodoListItem}
+      />
+
       {/* <ul>
         {inCompletedList.map((todo) => (
           <TodoItem todo={todo} key={todo.id} />
@@ -140,7 +190,15 @@ function App() {
       </ul> */}
 
       <TodoTitle title="完了TODOリスト" as="h2" />
-      <TodoList todoList={completedList} />
+      <TodoList
+        todoList={completedList}
+        //useTodo()カスタムフックで作成したtoggleTodoListItemStatus関数をpropsで渡す
+        // この関数はtodoListItemのdoneを反転させて更新する
+        toggleTodoListItemStatus={toggleTodoListItemStatus}
+        //useTodo()カスタムフックで作成したdeleteTodoListItemStatus関数をpropsで渡す
+        // この関数は削除ボタンをクリックしたときに実行してtodoを削除する
+        deleteTodoListItem={deleteTodoListItem}
+      />
       {/* <ul>
         {completedList.map((todo) => (
           <TodoItem todo={todo} key={todo.id} />

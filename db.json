@@ -3,7 +3,7 @@
     {
       "id": 1,
       "content": "create react appをインストールする",
-      "done": true
+      "done": false
     },
     {
       "id": 2,
@@ -33,7 +33,7 @@
     {
       "content": "tw",
       "id": "01FRJA49BPXSVZ1TX9KN8EZH02",
-      "done": false
+      "done": true
     }
   ]
 }
