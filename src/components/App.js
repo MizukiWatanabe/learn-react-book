@@ -9,14 +9,16 @@ import { useRef } from 'react';
 
 import { useTodo } from '../hooks/useTodo';
 
-// タイトルコンポーネント
-// 親からtitleとasをpropsで受け取る
-const TodoTitle = ({ title, as }) => {
-  if (as === 'h1') return <h1>{title}</h1>;
-  if (as === 'h2') return <h2>{title}</h2>;
+import { TodoTitle } from './TodoTitle';
 
-  return <p>{title}</p>;
-};
+// // タイトルコンポーネント
+// // 親からtitleとasをpropsで受け取る
+// const TodoTitle = ({ title, as }) => {
+//   if (as === 'h1') return <h1>{title}</h1>;
+//   if (as === 'h2') return <h2>{title}</h2>;
+
+//   return <p>{title}</p>;
+// };
 
 // TodoItemコンポーネント
 // 親コンポーネントからtodoをpropsで受け取る
@@ -41,60 +43,64 @@ const TodoTitle = ({ title, as }) => {
 //     </li>
 //   );
 // };
-// TodoItemコンポーネント
-// 親コンポーネントからtodoをpropsで受け取る
-const TodoItem = ({ todo, toggleTodoListItemStatus, deleteTodoListItem }) => {
-  // TODOの状態を反転させる関数toggleTodoListItemStatusを実行する関数を宣言
-  const handleToggleTodoListItemStatus = () =>
-    toggleTodoListItemStatus(todo.id, todo.done);
-  // TODOを削除するdeleteTodoListItemを実行する関数を宣言
-  const handleDeleteTodoListItem = () => deleteTodoListItem(todo.id);
 
-  return (
-    <li>
-      {todo.content}
-      <button onClick={handleToggleTodoListItemStatus}>
-        {todo.done ? '未完了リストへ' : '完了リストへ'}
-      </button>
-      <button onClick={handleDeleteTodoListItem}>削除</button>
-    </li>
-  );
-};
+// import { TodoItem } from './TodoItems';
+// // TodoItemコンポーネント
+// // 親コンポーネントからtodoをpropsで受け取る
+// const TodoItem = ({ todo, toggleTodoListItemStatus, deleteTodoListItem }) => {
+//   // TODOの状態を反転させる関数toggleTodoListItemStatusを実行する関数を宣言
+//   const handleToggleTodoListItemStatus = () =>
+//     toggleTodoListItemStatus(todo.id, todo.done);
+//   // TODOを削除するdeleteTodoListItemを実行する関数を宣言
+//   const handleDeleteTodoListItem = () => deleteTodoListItem(todo.id);
 
-// TODOlistコンポーネント
-// 親コンポーネントからtodolistをpropsで受け取る
-const TodoList = ({
-  todoList,
-  toggleTodoListItemStatus,
-  deleteTodoListItem,
-}) => {
-  return (
-    <ul>
-      {todoList.map((todo) => (
-        <TodoItem
-          todo={todo}
-          key={todo.id}
-          toggleTodoListItemStatus={toggleTodoListItemStatus}
-          deleteTodoListItem={deleteTodoListItem}
-        />
-        // <li key={todo.id}>
-        //   {todo.content}({todo.done ? '完了' : '未完了'})
-        //   <button>{todo.done ? '未完了リストへ' : '完了リストへ'}</button>
-        //   <button>削除</button>
-        // </li>
-      ))}
-    </ul>
-  );
-};
+//   return (
+//     <li>
+//       {todo.content}
+//       <button onClick={handleToggleTodoListItemStatus}>
+//         {todo.done ? '未完了リストへ' : '完了リストへ'}
+//       </button>
+//       <button onClick={handleDeleteTodoListItem}>削除</button>
+//     </li>
+//   );
+// };
 
-const TodoAdd = ({ inputEl, handleAddTodoListItem }) => {
-  return (
-    <>
-      <textarea ref={inputEl} />
-      <button onClick={handleAddTodoListItem}>+ TODOを追加</button>
-    </>
-  );
-};
+import { TodoList } from './TodoList';
+// // TODOlistコンポーネント
+// // 親コンポーネントからtodolistをpropsで受け取る
+// const TodoList = ({
+//   todoList,
+//   toggleTodoListItemStatus,
+//   deleteTodoListItem,
+// }) => {
+//   return (
+//     <ul>
+//       {todoList.map((todo) => (
+//         <TodoItem
+//           todo={todo}
+//           key={todo.id}
+//           toggleTodoListItemStatus={toggleTodoListItemStatus}
+//           deleteTodoListItem={deleteTodoListItem}
+//         />
+//         // <li key={todo.id}>
+//         //   {todo.content}({todo.done ? '完了' : '未完了'})
+//         //   <button>{todo.done ? '未完了リストへ' : '完了リストへ'}</button>
+//         //   <button>削除</button>
+//         // </li>
+//       ))}
+//     </ul>
+//   );
+// };
+
+import { TodoAdd } from './TodoAdd';
+// const TodoAdd = ({ inputEl, handleAddTodoListItem }) => {
+//   return (
+//     <>
+//       <textarea ref={inputEl} />
+//       <button onClick={handleAddTodoListItem}>+ TODOを追加</button>
+//     </>
+//   );
+// };
 
 function App() {
   // todolistの初期値にからの配列を設定
@@ -166,7 +172,7 @@ function App() {
 
       <button onClick={handleAddTodoListItem}>+ TODOを追加</button> */}
 
-      <TodoTitle title="TODOリスト" as="h2" />
+      {/* <TodoTitle title="TODOリスト" as="h2" /> */}
 
       <TodoList
         todoList={inCompletedList}
@@ -176,6 +182,8 @@ function App() {
         //useTodo()カスタムフックで作成したdeleteTodoListItemStatus関数をpropsで渡す
         // この関数は削除ボタンをクリックしたときに実行してtodoを削除する
         deleteTodoListItem={deleteTodoListItem}
+        title="TODOリスト"
+        as="h2"
       />
 
       {/* <ul>
@@ -189,7 +197,7 @@ function App() {
         ))}
       </ul> */}
 
-      <TodoTitle title="完了TODOリスト" as="h2" />
+      {/* <TodoTitle title="完了TODOリスト" as="h2" /> */}
       <TodoList
         todoList={completedList}
         //useTodo()カスタムフックで作成したtoggleTodoListItemStatus関数をpropsで渡す
@@ -198,6 +206,8 @@ function App() {
         //useTodo()カスタムフックで作成したdeleteTodoListItemStatus関数をpropsで渡す
         // この関数は削除ボタンをクリックしたときに実行してtodoを削除する
         deleteTodoListItem={deleteTodoListItem}
+        title="完了TODOリスト"
+        as="h2"
       />
       {/* <ul>
         {completedList.map((todo) => (
