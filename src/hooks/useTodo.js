@@ -34,10 +34,13 @@ export const useTodo = () => {
     // →完了・未完了のdoneの状態を反転させたいtodoListItemのidをみつけ、条件にあったtodoItemを返す
     // todoListは現在のtodoの状態;
     const todoItem = todoList.find((item) => item.id === id);
-
+    console.log('todoItem', todoItem);
     //現在のtodoListの中から条件に一致した要素であるtodoItemの完了未完了のdoneを反転させる
     // ここの構文わからない
+    // マージする際にプロパティ名が被った場合は、後に指定したオブジェクトの値で上書きされます。
+    // https://zenn.dev/web_tips/articles/69a63bc8a91459
     const newTodoItem = { ...todoItem, done: !done };
+    console.log('newtodoItem', newTodoItem);
 
     // todoData.updateTodoData()を利用して指定されたidのtodoを更新したら、続いてtodoListの状態も更新する
     //.thenわからない

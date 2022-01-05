@@ -9,6 +9,7 @@ export const getAllTodosData = async () => {
   // getの引数にURLを入れるとURLに対してgetリクエストを送信
   // リクエスト後に戻ってくる値はすべてresponseに保存される
   const response = await axios.get(todoDataUrl);
+  console.log(response, 'ye');
   return response.data;
 };
 
@@ -30,7 +31,7 @@ export const deleteTodoData = async (id) => {
 
 // 一致したidのtodoを更新する
 export const updateTodoData = async (id, todo) => {
-  // delete(URL,id)で削除
+  // put(URL,id)で更新
   const response = await axios.put(`${todoDataUrl}/${id}`, todo);
   // 通信後、response.dataでレスポンスデータを返す
   return response.data;
