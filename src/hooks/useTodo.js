@@ -31,7 +31,7 @@ export const useTodo = () => {
   // idとdoneを引数として受け取る
   const toggleTodoListItemStatus = (id, done) => {
     // find()は配列から条件に合う値を見つけて最初にtrueになった要素の値を返し、要素を見つけた時点で処理を停止する
-    // →完了・未完了のdoneの状態を反転させたいtodoListItemのidをみつけ、条件にあったtodoItemを返す
+    // →完了・未完了のdoneの状態を反転させたいtodoListItemのidをクリックされた要素のidとtodolistから探してみつけ、条件にあったtodoItemを返す
     // todoListは現在のtodoの状態;
     const todoItem = todoList.find((item) => item.id === id);
     console.log('todoItem', todoItem);
@@ -46,8 +46,12 @@ export const useTodo = () => {
     //.thenわからない
     //Promise.then(第一引数,第二)の第一引数は成功したときの処理(成功時に呼び出されるコールバック関数を指定する。)
     todoData.updateTodoData(id, newTodoItem).then((updatedTodo) => {
+      console.log('updatedTodoに入るのは更新された項目一つのみ', updatedTodo);
       const newTodoList = todoList.map((item) =>
-        // idが異なる場合、todoListから取り出したitemをそのまま返し、同じ場合はdoneの状態を反転させたupdatedTodoを返して新しい配列newTodoListを
+        // todoListの要素一つ一つとupdateTodoを比較して、
+        // idが異なる場合(=更新されていない要素)、todoListから取り出したitemをそのまま返し、
+        //同じ場合(=更新された要素！)はdoneの状態を反転させたupdatedTodoを返して
+        //新しい配列newTodoListを返して新しい配列を作成
         item.id !== updatedTodo.id ? item : updatedTodo
       );
       // todolistは現在のtodoの状態
