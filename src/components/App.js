@@ -4,6 +4,10 @@
 
 // const todoDataUrl = 'http://localhost:3100/todos';
 
+import { Container } from '@chakra-ui/react';
+
+import { AddIcon } from '@chakra-ui/icons';
+
 // useRefを利用できるようにする(todo入力フォームで利用する)
 import { useRef } from 'react';
 
@@ -159,13 +163,25 @@ function App() {
   console.log('完了TODOリスト:', completedList);
 
   return (
-    <div className="App">
+    <Container
+      centerContent
+      p={{ base: '4', md: '6' }}
+      maxWidth="3xl"
+      className="App"
+    >
       {/* <h1>TODO進捗管理</h1> */}
-      <TodoTitle title="TODO進捗管理" as="h1" />
+      <TodoTitle
+        title="TODO進捗管理"
+        as="h1"
+        fontSize={{ base: '2xl', md: '3xl' }}
+      />
 
       <TodoAdd
         inputEl={inputEl}
         handleAddTodoListItem={handleAddTodoListItem}
+        placeholder="ADD TODO"
+        leftIcon={<AddIcon />}
+        buttonText="TODOを追加"
       />
 
       {/* <textarea ref={inputEl} />
@@ -182,8 +198,9 @@ function App() {
         //useTodo()カスタムフックで作成したdeleteTodoListItemStatus関数をpropsで渡す
         // この関数は削除ボタンをクリックしたときに実行してtodoを削除する
         deleteTodoListItem={deleteTodoListItem}
-        title="TODOリスト"
+        title="未完了TODOリスト"
         as="h2"
+        fontSize={{ base: 'xl', md: 'xl' }}
       />
 
       {/* <ul>
@@ -208,6 +225,7 @@ function App() {
         deleteTodoListItem={deleteTodoListItem}
         title="完了TODOリスト"
         as="h2"
+        fontSize={{ base: 'xl', md: 'xl' }}
       />
       {/* <ul>
         {completedList.map((todo) => (
@@ -219,7 +237,7 @@ function App() {
           // </li>
         ))}
       </ul> */}
-    </div>
+    </Container>
   );
 }
 

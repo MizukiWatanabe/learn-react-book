@@ -2,6 +2,9 @@
 
 import { TodoItem } from './TodoItems';
 import { TodoTitle } from './TodoTitle';
+
+import { List } from '@chakra-ui/react';
+
 // 親コンポーネントからtodolistをpropsで受け取る
 export const TodoList = ({
   todoList,
@@ -9,14 +12,15 @@ export const TodoList = ({
   deleteTodoListItem,
   title,
   as,
+  fontSize,
 }) => {
   return (
     <>
       {/* todoListの配列の中身が空のときは見出しとTODOリストの両方を表示させない */}
       {todoList.length !== 0 && (
         <>
-          <TodoTitle title={title} as={as} />
-          <ul>
+          <TodoTitle title={title} as={as} fontSize={fontSize} mt="12" />
+          <List w="full">
             {todoList.map((todo) => (
               <TodoItem
                 todo={todo}
@@ -30,7 +34,7 @@ export const TodoList = ({
               //   <button>削除</button>
               // </li>
             ))}
-          </ul>
+          </List>
         </>
       )}
     </>
